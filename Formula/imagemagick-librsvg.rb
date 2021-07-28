@@ -6,7 +6,7 @@ class ImagemagickLibrsvg < Formula
     # unnecessarily and older versions of the formula are broken.
     url "https://dl.bintray.com/homebrew/mirror/ImageMagick-7.1.0-4.tar.xz"
     mirror "https://www.imagemagick.org/download/ImageMagick-7.1.0-4.tar.xz"
-    sha256 "a547dc24fede9d7340ca96b4b68c14071c302b237bf348c8e0ec541cf75b11a0"
+    sha256 "1a54bd46947f16fb29cf083be3614a14135f2fe9d1aa20665a85a8940bf6dc65"
     head "https://github.com/ImageMagick/ImageMagick.git"
   
     depends_on "pkg-config" => :build
