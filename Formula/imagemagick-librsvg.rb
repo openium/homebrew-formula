@@ -28,6 +28,7 @@ class ImagemagickLibrsvg < Formula
     depends_on "liblqr"
     depends_on "libomp"
     depends_on "libpng"
+    depends_on "librsvg"
     depends_on "libtiff"
     depends_on "libtool"
     depends_on "little-cms2"
