@@ -5,5 +5,5 @@ To install tap :
 ```
 brew tap openium/homebrew-formula
 brew remove imagemagick //Remove previous versions if installed
-brew install imagemagick-librsvg
+brew install openium/homebrew-formula/imagemagick-librsvg
 ```
