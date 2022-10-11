@@ -1,13 +1,13 @@
 class ImagemagickLibrsvg < Formula
     desc "Tools and libraries to manipulate images in many formats"
     homepage "https://imagemagick.org/index.php"
-    url "https://www.imagemagick.org/download/releases/ImageMagick-7.1.0-11.tar.xz"
-    sha256 "d2658645e4e7bcb02e634a00f47183fe85d23c2cbd7b98731639a542d53a6e06"
+    url "https://imagemagick.org/archive/releases/ImageMagick-7.1.0-50.tar.xz"
+    sha256 "cc8cf9e302a5afe5668ab17003769d9d8753104d2cf82883b72b175e152dc67a"
     license "ImageMagick"
     head "https://github.com/ImageMagick/ImageMagick.git", branch: "main"
   
     livecheck do
-      url "https://download.imagemagick.org/ImageMagick/download/"
+      url "https://imagemagick.org/archive/"
       regex(/href=.*?ImageMagick[._-]v?(\d+(?:\.\d+)+-\d+)\.t/i)
     end
   
