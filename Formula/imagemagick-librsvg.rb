@@ -1,13 +1,13 @@
 class ImagemagickLibrsvg < Formula
   desc "Tools and libraries to manipulate images in many formats"
   homepage "https://imagemagick.org/index.php"
-  url "https://imagemagick.org/archive/releases/ImageMagick-7.1.0-52.tar.xz"
-  sha256 "49acbe467ae83488f65ce4fc023dd4d545ec52297e4d653b0f64683aaef30586"
+  url "https://imagemagick.org/archive/releases/ImageMagick-7.1.1-16.tar.xz"
+  sha256 "059a51a9f61000a82a2d2974372eddbec9ce3d420c7493187388c1b0d49b90c0"
   license "ImageMagick"
   head "https://github.com/ImageMagick/ImageMagick.git", branch: "main"
   
     livecheck do
-      url "https://download.imagemagick.org/ImageMagick/download/"
+      url "https://imagemagick.org/archive/"
       regex(/href=.*?ImageMagick[._-]v?(\d+(?:\.\d+)+-\d+)\.t/i)
     end
   
@@ -45,11 +45,11 @@ class ImagemagickLibrsvg < Formula
     def install
       # Avoid references to shim
       inreplace Dir["**/*-config.in"], "@PKG_CONFIG@", Formula["pkg-config"].opt_bin/"pkg-config"
+      # versioned stuff in main tree is pointless for us
+      inreplace "configure", "${PACKAGE_NAME}-${PACKAGE_BASE_VERSION}", "${PACKAGE_NAME}"
   
       args = [
         "--enable-osx-universal-binary=no",
-        "--prefix=#{prefix}",
-        "--disable-dependency-tracking",
         "--disable-silent-rules",
         "--disable-opencl",
         "--enable-shared",
@@ -66,6 +66,7 @@ class ImagemagickLibrsvg < Formula
         "--with-gslib",
         "--with-gs-font-dir=#{HOMEBREW_PREFIX}/share/ghostscript/fonts",
         "--with-lqr",
+        "--without-djvu",
         "--without-fftw",
         "--without-pango",
         "--without-wmf",
@@ -81,9 +82,7 @@ class ImagemagickLibrsvg < Formula
         ]
       end
   
-      # versioned stuff in main tree is pointless for us
-      inreplace "configure", "${PACKAGE_NAME}-${PACKAGE_BASE_VERSION}", "${PACKAGE_NAME}"
-      system "./configure", *args
+      system "./configure", *std_configure_args, *args
       system "make", "install"
     end
   
