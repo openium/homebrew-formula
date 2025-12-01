@@ -11,15 +11,6 @@ class ImagemagickLibrsvg < Formula
     regex(/href=.*?ImageMagick[._-]v?(\d+(?:\.\d+)+-\d+)\.t/i)
   end
 
-  bottle do
-    sha256 arm64_tahoe:   "c8e11b70bef606402250ced23ac824ad43a4fdcf6dbd4586f2116eb2794fa9b0"
-    sha256 arm64_sequoia: "a8d237fb8cf555785013eb20e35d21e84651afc0a77b948f3a490888068b9c64"
-    sha256 arm64_sonoma:  "385933d3ca71714350fef384ce25974e47b47eb4dc74be32a495b8127177ccf0"
-    sha256 sonoma:        "ae84d25de26ae5c8db4e21b64428c31f216f5315b1463a5ebb8a0d416fb1a55d"
-    sha256 arm64_linux:   "12c85837ff3f966b43d308ce0d8ee964994cfcf6703952b74a230d404c31d1a6"
-    sha256 x86_64_linux:  "db4eb462fe6e61b310344fdf5f109711b180a67f4fdb9e160380444cfba02849"
-  end
-  
   depends_on "pkgconf" => :build
   depends_on "fontconfig"
   depends_on "freetype"
