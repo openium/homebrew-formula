@@ -1,8 +1,8 @@
 class ImagemagickLibrsvg < Formula
-  desc "Tools and libraries to manipulate images in many formats"
+  desc "Tools and libraries to manipulate images in select formats"
   homepage "https://imagemagick.org/index.php"
-  url "https://imagemagick.org/archive/releases/ImageMagick-7.1.2-9.tar.xz"
-  sha256 "f1c14b41a1a48762db63b1db4eddbeb251d8dfebdc13d214282e15bbbfc2bc34"
+  url "https://imagemagick.org/archive/releases/ImageMagick-7.1.2-15.tar.xz"
+  sha256 "ccb9913bba578daa582b73b2a97e55db49765d926cbb8ebf54e4e79b458e6679"
   license "ImageMagick"
   head "https://github.com/ImageMagick/ImageMagick.git", branch: "main"
 
@@ -13,13 +13,10 @@ class ImagemagickLibrsvg < Formula
 
   depends_on "pkgconf" => :build
   depends_on "fontconfig"
-  depends_on "freetype"
   depends_on "jpeg-turbo"
-  depends_on "jpeg-xl"
   depends_on "libheif"
   depends_on "liblqr"
   depends_on "libpng"
-  depends_on "libraw"
   depends_on "librsvg"
   depends_on "libtiff"
   depends_on "libtool"
@@ -61,15 +58,13 @@ class ImagemagickLibrsvg < Formula
       "--disable-opencl",
       "--enable-shared",
       "--enable-static",
-      "--with-freetype=yes",
       "--with-gvc=no",
       "--with-modules",
       "--with-openjp2",
-      "--with-openexr",
       "--with-rsvg",
       "--with-webp=yes",
       "--with-heic=yes",
-      "--with-raw=yes",
+      "--with-raw=no",
       "--with-uhdr=yes",
       "--with-zip=yes",
       "--without-gslib",
@@ -79,26 +74,23 @@ class ImagemagickLibrsvg < Formula
       "--without-fftw",
       "--without-pango",
       "--without-wmf",
+      "--without-jxl",
+      "--without-openexr",
       "--enable-openmp",
     ]
     if OS.mac?
       args += [
         "--without-x",
-        # Work around "checking for clang option to support OpenMP... unsupported"
-        "ac_cv_prog_c_openmp=-Xpreprocessor -fopenmp",
-        "ac_cv_prog_cxx_openmp=-Xpreprocessor -fopenmp",
-        "LDFLAGS=-lomp -lz",
       ]
     end
 
-    system "./configure", *std_configure_args, *args
+    system "./configure", *args, *std_configure_args
     system "make", "install"
   end
 
   def caveats
     <<~EOS
-      Ghostscript is not installed by default as a dependency.
-      If you need PS or PDF support, ImageMagick will still use the ghostscript formula if installed directly.
+      imagemagick-full includes additional tools and libraries that are not included in the regular imagemagick formula.
     EOS
   end
   
@@ -107,14 +99,8 @@ class ImagemagickLibrsvg < Formula
   
       # Check support for recommended features and delegates.
       features = shell_output("#{bin}/magick -version")
-      %w[Modules freetype heic jpeg png raw tiff].each do |feature|
+    %w[Modules heic jpeg png tiff].each do |feature|
         assert_match feature, features
-      end
-  
-      # Check support for a few specific image formats, mostly to ensure LibRaw linked correctly.
-      formats = shell_output("#{bin}/magick -list format")
-      ["AVIF  HEIC      rw+", "ARW  DNG       r--", "DNG  DNG       r--"].each do |format|
-        assert_match format, formats
-      end
     end
   end
+end
