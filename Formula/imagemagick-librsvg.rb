@@ -1,7 +1,7 @@
 class ImagemagickLibrsvg < Formula
   desc "Tools and libraries to manipulate images in select formats"
   homepage "https://imagemagick.org/index.php"
-  url "https://imagemagick.org/archive/releases/ImageMagick-7.1.2-15.tar.xz"
+  url "https://download.imagemagick.org/archive/releases/ImageMagick-7.1.2-15.tar.xz"
   sha256 "ccb9913bba578daa582b73b2a97e55db49765d926cbb8ebf54e4e79b458e6679"
   license "ImageMagick"
   head "https://github.com/ImageMagick/ImageMagick.git", branch: "main"
